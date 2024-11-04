@@ -39,83 +39,67 @@ function getComputerChoice() {
 
     return result;
 }
+const container = document.createElement("div");
+const body = document.querySelector("body");
 
 
-function getHumanChoice() {
+
+const btnRock = document.createElement("button");
+btnRock.textContent = "Rock button";
+const btnPaper = document.createElement("button");
+btnPaper.textContent = "Paper button";
+const btnScissors = document.createElement("button");
+btnScissors.textContent = "Scissors button";
+container.appendChild(btnRock); 
+container.appendChild(btnPaper); 
+container.appendChild(btnScissors); 
     
-    let result = prompt('Type "Rock", "Paper" or "Scissors" and press ENTER: ');
-
-    let lowerResult = result.toLowerCase();
-    console.log("your choice was "+lowerResult);
-
-    let a;
-    switch(lowerResult){
-        case "rock":
-        a = 1;
-        break;
-
-        case "paper":
-        a=2;
-        break;
-
-        case "scissors":
-        a = 3;
-        break;
-
-        default:
-        a = 4;
-        break;
-    }
-    return(a);
-}
-
+body.appendChild(container);
 
 let a = getComputerChoice;
-let b = getHumanChoice;
+//let b = getHumanChoice;
 
+
+const matchResult= document.createElement("div");
+body.appendChild(matchResult);
+
+
+
+function playRound(b){
+
+    a = getComputerChoice();
+
+       
+        if( a==1 && b==2){
+        humanScore = humanScore + 1;
+        matchResult.textContent = "you win. paper beats rock.";
+        }else if (a==1 && b==3){
+        computerScore = computerScore+1;
+        matchResult.textContent = "you lose. rock beats scissors.";
+        } else if (a==2 && b==1){
+        computerScore=computerScore+1;
+        matchResult.textContent = "you lose. paper beats rock.";
+        }else if (a==2 && b==3){
+        humanScore=humanScore+1;
+        matchResult.textContent = "you win. Scissors beats paper.";
+        }else if (a==3 && b==1){
+        humanScore=humanScore+1;
+        matchResult.textContent = "You win. Rock beats scissors.";
+        }else if(a==3 && b==2){
+        computerScore=computerScore+1;
+        matchResult.textContent = "You lose. Scissors beats paper.";
+        }else if (a == b){
+        matchResult.textContent = "Draw! you both showed the same thing!";
+        }
+     }
+    
+
+btnRock.addEventListener("click", () => playRound(1));
+btnPaper.addEventListener("click", () => playRound(2));
+btnScissors.addEventListener("click", () => playRound(3));
 
 let humanScore = 0;
 let computerScore=0;
-
-
-function playRound(){
-
-a = getComputerChoice();
-b = getHumanChoice();
-   
-        if( a==1 && b==2){
-        humanScore = humanScore + 1;
-        console.log("you win. paper beats rock.");
-        }else if (a==1 && b==3){
-        computerScore = computerScore+1;
-        console.log("you lose. rock beats scissors.");
-        } else if (a==2 && b==1){
-        computerScore=computerScore+1;
-        console.log("you lose. paper beats rock.");
-        }else if (a==2 && b==3){
-        humanScore=humanScore+1;
-        console.log("you win. Scissors beats paper.");
-        }else if (a==3 && b==1){
-        humanScore=humanScore+1;
-        console.log("You win. Rock beats scissors.");
-        }else if(a==3 && b==2){
-        computerScore=computerScore+1;
-        console.log("You lose. Scissors beats paper.");
-        }else if (a == b){
-        console.log("Draw! you both showed the same thing!");
-        }
-    }
-    
-playRound();
-playRound();
-playRound();
-playRound();
-playRound();
-
-
-
-
-console.log("Computer scored "+computerScore+" and you've got "+humanScore);
 
 if(computerScore>humanScore){
     console.log("You lose!");
@@ -124,5 +108,16 @@ if(computerScore>humanScore){
 }else{
     console.log("Nobody Won!");
 }
+
+
+let scoreboard = document.createElement("div");
+scoreboard.textContent=`Computer scored ${computerScore} and you've got ${+humanScore}`;
+body.appendChild(scoreboard);
+
+
+
+
+console.log("Computer scored "+computerScore+" and you've got "+humanScore);
+
 
 
