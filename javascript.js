@@ -15,9 +15,6 @@ function returns rock, paper or scissors.
 
 */
 function getComputerChoice() {
-    
-  
-
   let result = Math.floor(Math.random()*3)+1;
     let a;
     switch (result){
@@ -31,19 +28,12 @@ function getComputerChoice() {
         a = "Scissors";
         break;
     }
-
-    /*
-    console.log("computer choice is "+result+", "+a);
-    */
-
-
     return result;
 }
+
+
 const container = document.createElement("div");
 const body = document.querySelector("body");
-
-
-
 const btnRock = document.createElement("button");
 btnRock.textContent = "Rock button";
 const btnPaper = document.createElement("button");
@@ -53,71 +43,79 @@ btnScissors.textContent = "Scissors button";
 container.appendChild(btnRock); 
 container.appendChild(btnPaper); 
 container.appendChild(btnScissors); 
-    
 body.appendChild(container);
-
 let a = getComputerChoice;
 //let b = getHumanChoice;
-
-
 const matchResult= document.createElement("div");
 body.appendChild(matchResult);
-
+let roundCount = 0;
+let humanScore = 0;
+let computerScore=0;
+let scoreboard = document.createElement("div");
+body.appendChild(scoreboard);
+const finalResult = document.createElement("div");
+const roundText = document.createElement("div");
+roundText.textContent = `Round ${roundCount+1}!`;
+body.appendChild(roundText);
+body.appendChild(finalResult);
 
 
 function playRound(b){
 
+    roundCount++;
+    roundText.textContent = `Round ${roundCount+1}!`;
+
     a = getComputerChoice();
 
-       
-        if( a==1 && b==2){
-        humanScore = humanScore + 1;
-        matchResult.textContent = "you win. paper beats rock.";
-        }else if (a==1 && b==3){
-        computerScore = computerScore+1;
-        matchResult.textContent = "you lose. rock beats scissors.";
-        } else if (a==2 && b==1){
-        computerScore=computerScore+1;
-        matchResult.textContent = "you lose. paper beats rock.";
-        }else if (a==2 && b==3){
-        humanScore=humanScore+1;
-        matchResult.textContent = "you win. Scissors beats paper.";
-        }else if (a==3 && b==1){
-        humanScore=humanScore+1;
-        matchResult.textContent = "You win. Rock beats scissors.";
-        }else if(a==3 && b==2){
-        computerScore=computerScore+1;
-        matchResult.textContent = "You lose. Scissors beats paper.";
-        }else if (a == b){
-        matchResult.textContent = "Draw! you both showed the same thing!";
-        }
-     }
-    
+    if( a==1 && b==2){
+    humanScore++;
+    matchResult.textContent = "you win. paper beats rock.";
+    }else if (a==1 && b==3){
+    computerScore++;
+    matchResult.textContent = "you lose. rock beats scissors.";
+    } else if (a==2 && b==1){
+    computerScore=computerScore+1;
+    matchResult.textContent = "you lose. paper beats rock.";
+    }else if (a==2 && b==3){
+    humanScore++;
+    matchResult.textContent = "you win. Scissors beats paper.";
+    }else if (a==3 && b==1){
+    humanScore++;
+    matchResult.textContent = "You win. Rock beats scissors.";
+    }else if(a==3 && b==2){
+    computerScore++;
+    matchResult.textContent = "You lose. Scissors beats paper.";
+    }else if (a == b){
+    matchResult.textContent = "Draw! you both showed the same thing!";
+    }
+
+    scoreboard.textContent=`The Computer scored ${computerScore}
+     and you've got ${+humanScore}.`;
+  
+
+
+
+
+
+finalResult.textContent="Who is gonna be the Winner?";
+
+if(computerScore==5){
+    finalResult.textContent="You lose!";
+    btnRock.remove();
+    btnPaper.remove();
+    btnScissors.remove();
+    roundText.remove();
+    matchResult.remove();
+} else if (humanScore == 5){
+    finalResult.textContent="You win!!";
+    btnRock.remove();
+    btnPaper.remove();
+    btnScissors.remove();
+    roundText.remove();
+    matchResult.remove();
+    }
+    }    
 
 btnRock.addEventListener("click", () => playRound(1));
 btnPaper.addEventListener("click", () => playRound(2));
 btnScissors.addEventListener("click", () => playRound(3));
-
-let humanScore = 0;
-let computerScore=0;
-
-if(computerScore>humanScore){
-    console.log("You lose!");
-} else if (computerScore<humanScore){
-    console.log("You win!!");
-}else{
-    console.log("Nobody Won!");
-}
-
-
-let scoreboard = document.createElement("div");
-scoreboard.textContent=`Computer scored ${computerScore} and you've got ${+humanScore}`;
-body.appendChild(scoreboard);
-
-
-
-
-console.log("Computer scored "+computerScore+" and you've got "+humanScore);
-
-
-
